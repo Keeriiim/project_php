@@ -16,7 +16,9 @@ After downloading we have to configure so that vs code uses our php.
     Search for environment variable -> edit environment variable ->  
     System variables -> edit PATH -> New -> C:\xampp\php -> Ok
     3. Start XAMPP control panel  
-    ![alt text](image-1.png) 
+   
+
+![alt text](image-1.png)
 
 
 # Tools

@@ -120,7 +120,7 @@
           </div>
         </section>
 
-        <!-- Featured -->
+       <!-- HARDCODED
         <section id="featured" class="my-5 pb5">
           <div class="container text-center mt-5 py-5">
             <h3>FEATURED PRODUCTS</h3>
@@ -129,7 +129,8 @@
             <p>Get the best products for the best prices</p>
           </div>
           <div class="row mx-auto container-fluid">
-            <!-- Product 1-->
+
+            
             <div class="product text-center col-lg-3 col-md-4 col-sm-12">
               <img class="img-fluid mb-3" src="/assets/imgs/featured1.png"/>
               <div class="star">
@@ -144,7 +145,7 @@
               <button class="buy-btn">Buy Now</button>
             </div>
 
-            <!-- Product 2-->
+           
             <div class="product text-center col-lg-3 col-md-4 col-sm-12">
               <img class="img-fluid mb-3" src="/assets/imgs/featured2.png"/>
               <div class="star">
@@ -159,7 +160,6 @@
               <button class="buy-btn">Buy Now</button>
             </div>
 
-            <!-- Product 3-->
             <div class="product text-center col-lg-3 col-md-4 col-sm-16">
               <img class="img-fluid mb-3" src="/assets/imgs/featured3.png"/>
               <div class="star">
@@ -174,7 +174,7 @@
               <button class="buy-btn">Buy Now</button>
             </div>
 
-            <!-- Product 4-->
+            
             <div class="product text-center col-lg-3 col-md-4 col-sm-12">
               <img class="img-fluid mb-3" src="/assets/imgs/featured4.png"/>
               <div class="star">
@@ -190,9 +190,42 @@
             </div>
 
           </div>
-
-
         </section>
+
+        -->
+
+        <section id="featured" class="my-5 pb5">
+          <div class="container text-center mt-5 py-5">
+            <h3>FEATURED PRODUCTS</h3>
+            <hr>
+            <h1>Summer Sale</h1>
+            <p>Get the best products for the best prices</p>
+          </div>
+          <div class="row mx-auto container-fluid">
+
+            <?php include('server/get_featured_prod.php')?>
+
+            <?php while($row = $featured_prod_result->fetch_assoc()){ ?>
+            <div class="product text-center col-lg-3 col-md-4 col-sm-12">
+              <img class="img-fluid mb-3" src="/assets/imgs/<?php echo $row['product_image']; ?>"/>
+              <div class="star">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <h5 class="p-name"><?php echo $row['product_name']; ?></h5>
+              <h4 class="p-price">$ <?php echo $row['product_price']; ?></h4>
+              
+              <button class="buy-btn">Buy Now</button>
+            </div>
+
+            <?php } ?>
+
+            </div>
+          </section>
+
 
         <!-- Banner -->
         <section id="banner" class="my-5 py-5">
