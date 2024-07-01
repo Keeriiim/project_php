@@ -1,3 +1,25 @@
+<?php
+
+if(isset($_GET['product_id'])) {
+
+  $producti_id = $_GET['product_id']; // Get the product id from the URL
+    
+
+  $stmt = $conn->prepare("SELECT * FROM products WHERE product_id = ?"); // Prepare the statement to get the product with the id that was clicked
+  $stmt->bind_param("i", $producti_id); // Bind the parameter to the statement, meaning that the ? will be replaced with the product_id
+  $stms->execute(); // Execute the statement
+
+  $result = $stmt->get_result(); // Get the result of the statement meaning the product with the id that was clicked
+}
+
+else {
+  header("Location: index.php"); // If the product id is not set, redirect to the shop page
+  exit(); // Exit the script
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
