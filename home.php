@@ -231,10 +231,14 @@
         <section id="banner" class="my-5 py-5">
           <div class="container">
             <h4>Season Sale</h4>
-            <h1>Autum Collection <br> Up to 30% OFF</h1>
+            <h1>Autum Collection <br> Up to 30% OFF</h1>           
             <button class="text-uppercase">shop now</button>
           </div>
         </section>
+
+
+
+
 
         <!-- Footer -->
         <footer class="mt-5 py-5">

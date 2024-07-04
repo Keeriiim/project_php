@@ -1,25 +1,27 @@
-<?php
+<?php 
 
-if(isset($_GET['product_id'])) {
+include('server/connection.php'); /* Include the connection file */
 
-  $producti_id = $_GET['product_id']; // Get the product id from the URL
+if(isset($_GET['id'])){ /* If the product_id is set in the URL */
+
+  $product_id=$_GET['id']; /* Get the product_id from the URL */
+
+  $stmt = $conn->prepare("SELECT * FROM products WHERE product_id = ? LIMIT 1"); /* This will  */
+  $stmt->bind_param("i", $product_id); /* Bind the product_id to the statement */
+
+  $stmt->execute(); /* Execute the statement */
+
+  $product = $stmt->get_result(); /* Get the result */
     
-
-  $stmt = $conn->prepare("SELECT * FROM products WHERE product_id = ?"); // Prepare the statement to get the product with the id that was clicked
-  $stmt->bind_param("i", $producti_id); // Bind the parameter to the statement, meaning that the ? will be replaced with the product_id
-  $stms->execute(); // Execute the statement
-
-  $result = $stmt->get_result(); // Get the result of the statement meaning the product with the id that was clicked
 }
-
 else {
-  header("Location: index.php"); // If the product id is not set, redirect to the shop page
-  exit(); // Exit the script
+    
+    header("Location: index.php"); 
 }
+
 
 ?>
-
-
+      
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,46 +91,57 @@ else {
         </div>
       </nav>
 
+      
+     
 
-    <!-- Product -->
-    <section class="single-prod my-5 pt-5">
+      <!-- Product -->
+    <section class="container single-prod my-5 pt-5">
         <div class="row mt-5">
+          
+          <?php 
+              while($row = $product->fetch_assoc()){ /* Fetch the product from the database */
+          ?> 
+
             <div class="col-lg-5 col-md-6 col-sm-12">
-                <img class="img-fluid w-100 pb-1" src="assets/imgs/featured1.png" id="mainImg"/>
+                <img class="img-fluid w-100 pb-1" src="assets/imgs/<?php echo $row['product_image']; ?>" id="mainImg"/>
                 <div class="small-img-group">
                     <div class="small-img-col">
-                        <img src="assets/imgs/featured2.png" width="100%" class="small-img">
+                        <img src="assets/imgs/<?php echo $row['product_image']; ?>" width="100%" class="small-img">
                     </div>
                     <div class="small-img-col">
-                        <img src="assets/imgs/featured3.png" width="100%" class="small-img">
+                        <img src="assets/imgs/<?php echo $row['product_image2']; ?>" width="100%" class="small-img">
                     </div>
                     <div class="small-img-col">
-                        <img src="assets/imgs/featured4.png" width="100%" class="small-img">
+                        <img src="assets/imgs/<?php echo $row['product_image3']; ?>" width="100%" class="small-img">
                     </div>
                     <div class="small-img-col">
-                      <img src="assets/imgs/featured1.png" width="100%" class="small-img">
+                      <img src="assets/imgs/<?php echo $row['product_image4']; ?>" width="100%" class="small-img">
                     </div>
                 </div>
             </div>
+
+           
         
 
 
-            <div class="col-lg-6 col-md-12 col-12"></iv>
+            <div class="col-lg-6 col-md-12 col-12">
                 <h6>Men/Shoes</h6>
-                <h3 class="py-4">Men's Fashion</h3>
-                <h2>$155</h2>
+                <h3 class="py-4"><?php echo $row["product_name"]?></h3>
+                <h2>$<?php echo $row["product_price"]?></h2>
                 <input type="number" value="1"/>
                 <button class="buy-btn">Add to cart</button>
-                <h4 class="mt-5">Product</h4>
-                <span>The details of this product will be displayed</span>
-            </div>   
+                <h4 class="mt-5 mb-5">Product details</h4>
+                <span><?php echo $row["product_description"]?></span>
+            </div> 
+            
+          
         </div>
     </section>
 
 
 
-   
-    <!-- Related Products -->
+   <!--
+     Related Products 
     <section id="related-prod" class="my-5 pb5">
       <div class="container  mt-5 py-5">
         <h3>Related Products</h3>
@@ -136,7 +149,7 @@ else {
         <hr>
       </div>
       <div class="row mx-auto container-fluid">
-        <!-- Product 1-->
+         Product 1
         <div class="product text-center col-lg-3 col-md-4 col-sm-12">
           <img class="img-fluid mb-3" src="/assets/imgs/featured1.png"/>
           <div class="star">
@@ -147,11 +160,11 @@ else {
             <i class="fas fa-star"></i>
           </div>
           <h5 class="p-name">Sports Shoes</h5>
-          <h4 class="p-price">$199.8</h4>
+          <h4 class="p-price">$<?php echo $row['product_price']; ?></h4>
           <button class="buy-btn">Buy Now</button>
         </div>
 
-        <!-- Product 2-->
+         Product 2
         <div class="product text-center col-lg-3 col-md-4 col-sm-12">
           <img class="img-fluid mb-3" src="/assets/imgs/featured2.png"/>
           <div class="star">
@@ -162,11 +175,11 @@ else {
             <i class="fas fa-star"></i>
           </div>
           <h5 class="p-name">Sports Shoes</h5>
-          <h4 class="p-price">$199.8</h4>
+          <h4 class="p-price">$<?php echo $row['product_price']; ?></h4>
           <button class="buy-btn">Buy Now</button>
         </div>
 
-        <!-- Product 3-->
+         Product 3
         <div class="product text-center col-lg-3 col-md-4 col-sm-16">
           <img class="img-fluid mb-3" src="/assets/imgs/featured3.png"/>
           <div class="star">
@@ -177,11 +190,11 @@ else {
             <i class="fas fa-star"></i>
           </div>
           <h5 class="p-name">Sports Shoes</h5>
-          <h4 class="p-price">$199.8</h4>
+          <h4 class="p-price">$<?php echo $row['product_price']; ?></h4>
           <button class="buy-btn">Buy Now</button>
         </div>
 
-        <!-- Product 4-->
+         Product 4
         <div class="product text-center col-lg-3 col-md-4 col-sm-12">
           <img class="img-fluid mb-3" src="/assets/imgs/featured4.png"/>
           <div class="star">
@@ -192,7 +205,7 @@ else {
             <i class="fas fa-star"></i>
           </div>
           <h5 class="p-name">Sports Shoes</h5>
-          <h4 class="p-price">$199.8</h4>
+          <h4 class="p-price">$<?php echo $row['product_price']; ?></h4>
           <button class="buy-btn">Buy Now</button>
         </div>
 
@@ -200,6 +213,40 @@ else {
 
 
     </section>
+              -->
+
+
+              <section id="featured" class="my-5 pb5">
+          <div class="container text-center mt-5 py-5">
+            <h3>FEATURED PRODUCTS</h3>
+            <hr>
+            <h1>Summer Sale</h1>
+            <p>Get the best products for the best prices</p>
+          </div>
+          <div class="row mx-auto container-fluid">
+
+            <?php include('server/get_featured_prod.php')?>
+
+            <?php while($row = $featured_prod_result->fetch_assoc()){ ?>
+            <div class="product text-center col-lg-3 col-md-4 col-sm-12">
+            <a href="single_product.php?id=<?php echo $row['product_id']; ?>"><img class="img-fluid mb-3" src="/assets/imgs/<?php echo $row['product_image']; ?>"/></a>
+              <div class="star">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <h5 class="p-name"><?php echo $row['product_name']; ?></h5>
+              <h4 class="p-price">$ <?php echo $row['product_price']; ?></h4>
+              <a href="single_product.php?id=<?php echo $row['product_id']; ?>"> <button class="buy-btn">Buy Now</button></a>
+              
+            </div>
+
+            <?php } ?>
+
+            </div>
+          </section>
 
 
 
@@ -269,7 +316,9 @@ else {
 
       </footer>
 
-
+      <?php 
+              }
+          ?> 
 
 
 <!-- Js bundle for Bootstrap-->
