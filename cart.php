@@ -52,12 +52,40 @@ else if(isset($_POST['remove_product'])){ /* if the user clicked the remove butt
   unset($_SESSION['cart'][$product_id]);  /* remove the product from the cart */
 
 }
+
+
+else if(isset($_POST['edit_quantity'])){ /* if the user clicked the edit button */
+  $product_id = $_POST['product_id']; /* get the product id */
+  $product_quantity = $_POST['product_quantity']; /* get the new quantity */
+
+  $product_array= $_SESSION['cart'][$product_id]; /* get the product array, meaning the product that the user wants to edit which is stored in the session */
+  $product_array['product_quantity'] = $product_quantity; /* update the quantit */
+
+  $_SESSION['cart'][$product_id] = $product_array; /* store the updated array in the session */
+
+}
 else{ /* if the user has not added anything to the cart, redirect to the home page */
   echo "<script>alert('no product is in the cart')</script>";
   echo "<script>window.location = 'home.php'</script>";
-
-
   }
+
+
+  
+  function subTotal(){
+    $total = 0;
+    foreach($_SESSION['cart'] as $key => $value){ /* loop through the cart, by getting the key and value */
+      /* $total = $total + ($value['product_quantity'] * $value['product_price']);       better code */
+
+      $product = $_SESSION['cart'][$key]; /* get the product */
+      $price = $product['product_price']; /* get the price */
+      $quantity = $product['product_quantity']; /* get the quantity */
+
+      $total = $total + ($price * $quantity); /* calculate the total */
+    }
+    return $total;
+  }
+
+  $subTotal_cart = subTotal(); /* get the total of the cart */
 
 
 ?>
@@ -185,21 +213,19 @@ else{ /* if the user has not added anything to the cart, redirect to the home pa
               <tr>
                 <td>
                     <div class="product-info">
-                        <img src="assets/imgs/<?php echo $value['product_image'] ?>"/>
+                        <img src="assets/imgs/<?php echo $value['product_image']; ?>"/>
                         <div>
                             <p><?php echo $value['product_name'] ?></p>
-                            <small><span>$</span> <?php echo $value['product_price'] ?> </small>
+                            <small><span>$</span> <?php echo $value['product_price']; ?> </small>
                             <br>
 
 
                             <form method="POST" action="cart.php">
-                              <input type="hidden" name="product_id" value="<?php echo $value['product_id'] ?>"/>
-                              <input type="hidden" name="product_name" value="<?php echo $value['product_name'] ?>"/>
-                              <input type="hidden" name="product_price" value="<?php echo $value['product_price'] ?>"/>
-                              <input type="hidden" name="product_image" value="<?php echo $value['product_image'] ?>"/>
-                              <input type="submit" name="remove_product" value="remove" class="remove-btn"/>
-                            
-
+                              <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>"/>
+                              <input type="hidden" name="product_name" value="<?php echo $value['product_name']; ?>"/>
+                              <input type="hidden" name="product_price" value="<?php echo $value['product_price']; ?>"/>
+                              <input type="hidden" name="product_image" value="<?php echo $value['product_image']; ?>"/>
+                              <input type="submit" name="remove_product" value="remove" class="remove-btn"/>                        
                             </form>
                             
       
@@ -208,12 +234,17 @@ else{ /* if the user has not added anything to the cart, redirect to the home pa
                 </td>
                 
                 <td>
-                    <input type="number" value="<?php echo $value['product_quantity'] ?>" min="1" max="10"/>
-                    <a class="edit-btn" href="#">Edit</a>
+                    
+                    <form method="POST" action="cart.php">
+                      <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>"/>
+                      <input type="number" name="product_quantity" value="<?php echo $value['product_quantity']; ?>" /> 
+                      <input type="submit" name="edit_quantity" value="edit" class="edit-btn"/>
+                    </form>
+                    
                 </td>
                 <td>
                     <span>$</span>
-                    <span class="product-price">155</span>
+                    <span class="product-price"><?php echo $value['product_quantity'] * $value['product_price'] ?></span>
                 </td>
             </tr>
 
@@ -226,18 +257,21 @@ else{ /* if the user has not added anything to the cart, redirect to the home pa
         <div class="cart-total">  
           <table>
             <tr>
-              <td>Subtotal</td>
-              <td>$155</td>
-            </tr>
-            <tr>
               <td>Total</td>
-              <td>$155</td>
+              <td>$ <?php echo $subTotal_cart ?></td>
           </table>
         </div>
 
+        
+
         <!-- Checkout -->
         <div class="checkout-container">
-          <button class="checkout-btn">Checkout</button>
+          <form method="POST" action="checkout.php">
+            <input type="hidden" name="total" value="<?php echo $subTotal_cart; ?>"/>
+            <input class="checkout-btn" name="checkout" value="Checkout"/>
+            
+          </form>
+          
         </div>
 
       </section>
