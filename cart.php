@@ -3,7 +3,7 @@
 session_start(); /* Starts the session, meaning that the session is active and can store data */
 
 if(isset($_POST['add_to_cart'])){ /* this will check if the user clicked the add to cart button */
-  echo "<script>alert('You pressed the button')</script>";
+ // echo "<script>alert('You pressed the button')</script>";
   
   
 
@@ -42,7 +42,10 @@ if(isset($_POST['add_to_cart'])){ /* this will check if the user clicked the add
       $product_array = array('product_id' => $product_id, 'product_name' => $product_name, 'product_price' => $product_price, 'product_image' => $product_image, 'product_quantity' => $product_quantity);
 
       $_SESSION['cart'][$product_id] = $product_array; /* store the array in the session */
+      
     }
+
+    subTotal(); /* call the subTotal function */
     
 
   
@@ -50,6 +53,8 @@ if(isset($_POST['add_to_cart'])){ /* this will check if the user clicked the add
 else if(isset($_POST['remove_product'])){ /* if the user clicked the remove button */
   $product_id = $_POST['product_id'];     /* get the product id */
   unset($_SESSION['cart'][$product_id]);  /* remove the product from the cart */
+
+  subTotal(); /* call the subTotal function */
 
 }
 
@@ -62,6 +67,8 @@ else if(isset($_POST['edit_quantity'])){ /* if the user clicked the edit button 
   $product_array['product_quantity'] = $product_quantity; /* update the quantit */
 
   $_SESSION['cart'][$product_id] = $product_array; /* store the updated array in the session */
+
+  subTotal(); /* call the subTotal function */
 
 }
 else{ /* if the user has not added anything to the cart, redirect to the home page */
@@ -82,13 +89,23 @@ else{ /* if the user has not added anything to the cart, redirect to the home pa
 
       $total = $total + ($price * $quantity); /* calculate the total */
     }
-    return $total;
+    $_SESSION['total'] = $total; /* store the total in the session */
+    
   }
 
-  $subTotal_cart = subTotal(); /* get the total of the cart */
-
-
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <!DOCTYPE html>
@@ -258,7 +275,7 @@ else{ /* if the user has not added anything to the cart, redirect to the home pa
           <table>
             <tr>
               <td>Total</td>
-              <td>$ <?php echo $subTotal_cart ?></td>
+              <td>$ <?php echo $_SESSION['total'] ?></td>
           </table>
         </div>
 
@@ -267,8 +284,8 @@ else{ /* if the user has not added anything to the cart, redirect to the home pa
         <!-- Checkout -->
         <div class="checkout-container">
           <form method="POST" action="checkout.php">
-            <input type="hidden" name="total" value="<?php echo $subTotal_cart; ?>"/>
-            <input class="checkout-btn" name="checkout" value="Checkout"/>
+            <input type="hidden" name="total" value="<?php echo $_SESSION['total'] ?>"/>
+            <input type="submit" class="checkout-btn" name="checkout" value="Checkout"/>
             
           </form>
           

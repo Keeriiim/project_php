@@ -1,3 +1,21 @@
+<?php 
+
+session_start();
+
+if (!empty($_SESSION['cart']) && isset($_POST['checkout'])) {  /* if cart is not empty and checkout button is pressed */
+   
+} else {
+    header('Location: home.php');
+    
+    
+} 
+    
+    
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,7 +59,7 @@
 
                 <!-- Nav items -->
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="home.html">Home</a>
+                    <a class="nav-link active" aria-current="page" href="home.php">Home</a>
                 </li>
 
                 <li class="nav-item">
@@ -58,7 +76,7 @@
 
 
                 <li class="nav-item">
-                    <a href="cart.html"><i class="fas fa-cart-shopping"></i></a>
+                    <a href="cart.php"><i class="fas fa-cart-shopping"></i></a>
                     <a href="account.html"><i class="fas fa-user"></i></a>
                   </li>
 
@@ -98,7 +116,8 @@
                     <input type="text" class="form-control" id="checkout-adress" name="adress" placeholder="Adress" required>
                 </div>
                 <div class="form-group checkout-btn-container">
-                    <input type="submit" class="btn" id="checkout-btn" value="Checkout"/>
+                    <p>Total amount: $ <?php echo $_SESSION['total']; ?></p>
+                    <input type="submit" class="btn" id="checkout-btn" value="Checkout" name="place_order" />
                 </div>
             </form>
         </div>
