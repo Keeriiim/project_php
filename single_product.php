@@ -82,7 +82,7 @@ else {
 
 
                 <li class="nav-item">
-                  <a href="cart.html"><i class="fas fa-cart-shopping"></i></a>
+                  <a href="cart.php"><i class="fas fa-cart-shopping"></i></a>
                   <a href="account.html"><i class="fas fa-user"></i></a>
                 </li>
 
@@ -101,6 +101,8 @@ else {
           <?php 
               while($row = $product->fetch_assoc()){ /* Fetch the product from the database */
           ?> 
+
+          
 
             <div class="col-lg-5 col-md-6 col-sm-12">
                 <img class="img-fluid w-100 pb-1" src="assets/imgs/<?php echo $row['product_image']; ?>" id="mainImg"/>
@@ -128,15 +130,25 @@ else {
                 <h6>Men/Shoes</h6>
                 <h3 class="py-4"><?php echo $row["product_name"]?></h3>
                 <h2>$<?php echo $row["product_price"]?></h2>
-                <input type="number" value="1"/>
-                <button class="buy-btn">Add to cart</button>
+
+                <form action="cart.php" method="POST"> <!-- This form will be used to add the product to the cart -->
+                  <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?>"/> <!-- This will be used to get the product_id when the form is submitted -->
+                  <input type="hidden" name="product_image" value="<?php echo $row['product_image']; ?>"> <!-- This will be used to get the product_image when the form is submitted -->
+                  <input type="hidden" name="product_name" value="<?php echo $row['product_name']; ?>"> <!-- This will be used to get the product_name when the form is submitted -->
+                  <input type="hidden" name="product_price" value="<?php echo $row['product_price']; ?>"> <!-- This will be used to get the product_price when the form is submitted -->
+                  <input type="number" name ="product_quantity" value="1"/>  <!-- This will be used to get the product_quantity when the form is submitted -->
+                  <button class="buy-btn" type="submit" name="add_to_cart">Add to cart</button>
+                  
+                </form>  
+                
                 <h4 class="mt-5 mb-5">Product details</h4>
                 <span><?php echo $row["product_description"]?></span>
             </div> 
-            
           
         </div>
     </section>
+
+    <?php } ?>
 
 
 
@@ -160,52 +172,7 @@ else {
             <i class="fas fa-star"></i>
           </div>
           <h5 class="p-name">Sports Shoes</h5>
-          <h4 class="p-price">$<?php echo $row['product_price']; ?></h4>
-          <button class="buy-btn">Buy Now</button>
-        </div>
-
-         Product 2
-        <div class="product text-center col-lg-3 col-md-4 col-sm-12">
-          <img class="img-fluid mb-3" src="/assets/imgs/featured2.png"/>
-          <div class="star">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-          </div>
-          <h5 class="p-name">Sports Shoes</h5>
-          <h4 class="p-price">$<?php echo $row['product_price']; ?></h4>
-          <button class="buy-btn">Buy Now</button>
-        </div>
-
-         Product 3
-        <div class="product text-center col-lg-3 col-md-4 col-sm-16">
-          <img class="img-fluid mb-3" src="/assets/imgs/featured3.png"/>
-          <div class="star">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-          </div>
-          <h5 class="p-name">Sports Shoes</h5>
-          <h4 class="p-price">$<?php echo $row['product_price']; ?></h4>
-          <button class="buy-btn">Buy Now</button>
-        </div>
-
-         Product 4
-        <div class="product text-center col-lg-3 col-md-4 col-sm-12">
-          <img class="img-fluid mb-3" src="/assets/imgs/featured4.png"/>
-          <div class="star">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-          </div>
-          <h5 class="p-name">Sports Shoes</h5>
-          <h4 class="p-price">$<?php echo $row['product_price']; ?></h4>
+          <h4 class="p-price">$</h4>
           <button class="buy-btn">Buy Now</button>
         </div>
 
@@ -316,9 +283,7 @@ else {
 
       </footer>
 
-      <?php 
-              }
-          ?> 
+      
 
 
 <!-- Js bundle for Bootstrap-->

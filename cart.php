@@ -1,3 +1,68 @@
+<?php
+
+session_start(); /* Starts the session, meaning that the session is active and can store data */
+
+if(isset($_POST['add_to_cart'])){ /* this will check if the user clicked the add to cart button */
+  echo "<script>alert('You pressed the button')</script>";
+  
+  
+
+  if(isset($_POST['cart'])){ /* if the product is already in the cart */
+    echo "<script>alert('This item is now in the cart')</script>";
+    $product_arrays_ids = array_column($_SESSION['cart'], 'product_id'); /* returns all product id from the session */
+    
+    if(!in_array($_POST['product_id'],$products_array_ids)){ /* if the product is not in the cart, add it */
+      
+
+      $product_array = array(
+        'product_id' => $_POST['product_id'],
+        'product_name' => $_POST['product_name'],
+        'product_price' => $_POST['product_price'],
+        'product_image' => $_POST['product_image'],
+        'product_quantity' => $_POST['product_quantity']);
+
+      $_SESSION['cart']['product_id'] = $product_array; /* store the array in the session */
+
+      // Product has alreadybeen added to the cart
+    }else{
+      echo "<script>alert('Product is already added to the cart')</script>";
+
+    }
+  }
+  else{ /* if this is the first product getting added */
+      
+      
+
+      $product_id = $_POST['product_id'];
+      $product_name = $_POST['product_name'];
+      $product_price = $_POST['product_price'];
+      $product_image = $_POST['product_image'];
+      $product_quantity = $_POST['product_quantity'];
+
+      $product_array = array('product_id' => $product_id, 'product_name' => $product_name, 'product_price' => $product_price, 'product_image' => $product_image, 'product_quantity' => $product_quantity);
+
+      $_SESSION['cart'][$product_id] = $product_array; /* store the array in the session */
+    }
+    
+
+  
+}
+else if(isset($_POST['remove_product'])){ /* if the user clicked the remove button */
+  $product_id = $_POST['product_id'];     /* get the product id */
+  unset($_SESSION['cart'][$product_id]);  /* remove the product from the cart */
+
+}
+else{ /* if the user has not added anything to the cart, redirect to the home page */
+  echo "<script>alert('no product is in the cart')</script>";
+  echo "<script>window.location = 'home.php'</script>";
+
+
+  }
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +102,7 @@
 
                 <!-- Nav items -->
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="home.html">Home</a>
+                    <a class="nav-link active" aria-current="page" href="home.php">Home</a>
                 </li>
 
                 <li class="nav-item">
@@ -54,7 +119,7 @@
 
 
                 <li class="nav-item">
-                  <a href="cart.html"><i class="fas fa-cart-shopping"></i></a>
+                  <a href="cart.php"><i class="fas fa-cart-shopping"></i></a>
                   <a href="account.html"><i class="fas fa-user"></i></a>
                 </li>
 
@@ -64,7 +129,7 @@
       </nav>
 
 
-      <!-- Cart -->
+      <!-- Cart 
       <section class="cart container my-5 py-5">
         <div class="container mt-5">
             <h2 class="font-wight-bold">Your cart</h2>
@@ -99,6 +164,61 @@
                     <span class="product-price">155</span>
                 </td>
             </tr>
+        </table>
+        -->
+
+        <!-- Cart -->
+        <section class="cart container my-5 py-5">
+        <div class="container mt-5">
+            <h2 class="font-wight-bold">Your cart</h2>
+        </div>
+
+        <table class="mt-5 pt-5">
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+
+            <?php foreach($_SESSION['cart'] as $key => $value){ ?>
+
+              <tr>
+                <td>
+                    <div class="product-info">
+                        <img src="assets/imgs/<?php echo $value['product_image'] ?>"/>
+                        <div>
+                            <p><?php echo $value['product_name'] ?></p>
+                            <small><span>$</span> <?php echo $value['product_price'] ?> </small>
+                            <br>
+
+
+                            <form method="POST" action="cart.php">
+                              <input type="hidden" name="product_id" value="<?php echo $value['product_id'] ?>"/>
+                              <input type="hidden" name="product_name" value="<?php echo $value['product_name'] ?>"/>
+                              <input type="hidden" name="product_price" value="<?php echo $value['product_price'] ?>"/>
+                              <input type="hidden" name="product_image" value="<?php echo $value['product_image'] ?>"/>
+                              <input type="submit" name="remove_product" value="remove" class="remove-btn"/>
+                            
+
+                            </form>
+                            
+      
+                        </div>
+                    </div>
+                </td>
+                
+                <td>
+                    <input type="number" value="<?php echo $value['product_quantity'] ?>" min="1" max="10"/>
+                    <a class="edit-btn" href="#">Edit</a>
+                </td>
+                <td>
+                    <span>$</span>
+                    <span class="product-price">155</span>
+                </td>
+            </tr>
+
+            <?php } ?>
+            
         </table>
 
 

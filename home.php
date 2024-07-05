@@ -37,7 +37,7 @@
 
                 <!-- Nav items -->
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="home.html">Home</a>
+                    <a class="nav-link active" aria-current="page" href="home.php">Home</a>
                 </li>
 
                 <li class="nav-item">
@@ -54,7 +54,7 @@
 
 
                 <li class="nav-item">
-                  <a href="cart.html"><i class="fas fa-cart-shopping"></i></a>
+                  <a href="cart.php"><i class="fas fa-cart-shopping"></i></a>
                   <a href="account.html"><i class="fas fa-user"></i></a>
                 </li>
 
@@ -93,7 +93,7 @@
             <div class="one col-lg-4 col-md-12 col-sm-12 p-0">
               <img class="img-fluid" src="assets/imgs/new1.png"/>
               <div class="details">
-                <h2>Extreamly Awsome Shoes</h2>
+                <h2>Watches</h2>
                 <button class="text-uppercase">Shop Now</button>
               </div>
             </div>
@@ -103,7 +103,7 @@
             <div class="one col-lg-4 col-md-12 col-sm-12 p-0">
               <img class="img-fluid" src="assets/imgs/new2.png"/>
               <div class="details">
-                  <h2>Extreamly Awsome Shoes</h2>
+                  <h2>Shoes</h2>
                   <button class="text-uppercase">Shop Now</button>
               </div>
             </div>
@@ -113,7 +113,7 @@
             <div class="one col-lg-4 col-md-12 col-sm-12 p-0">
                 <img class="img-fluid" src="assets/imgs/new3.png"/>
                 <div class="details">
-                  <h2>Extreamly Awsome Bag</h2>
+                  <h2>Bags  </h2>
                   <button class="text-uppercase">Shop Now</button>
                 </div>
             </div>
