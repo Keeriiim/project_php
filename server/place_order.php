@@ -36,12 +36,12 @@ if(isset($_POST['place_order'])) {
 
     $stmt->execute(); // execute the query
 
-    $order_id= $stmt->insert_id; // get the id of the last inserted record
+    $order_id= $stmt->insert_id; // 2. get the id of the last inserted record
    
 
    
 
-    //get products from cart (session)
+    //3.get products from cart (session)
 
     $cart = $_SESSION['cart'];
     foreach($_SESSION['cart'] as $key => $value) {
@@ -52,18 +52,19 @@ if(isset($_POST['place_order'])) {
         $product_price = $product['product_price']; // get the price
         $product_quantity = $product['product_quantity']; // get the quantity
 
+        //4. store each single item in _order_items
         $stmt1 = $conn->prepare("INSERT INTO order_items (order_id, product_id, product_name, product_image, product_price, product_quantity, user_id, order_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?); "); // prepare the query
         $stmt1->bind_param("iissiiis", $order_id, $product_id, $product_name, $product_image, $product_price, $product_quantity, $user_id, $order_date); // bind the parameters
         $stmt1->execute(); // execute the query
     }
+    
 
-    //store order info in db
+    // 5. remove all from cart
 
-    //store each single item in _order_itmes
+    // 6. inform user wether everything went well or not
+    header('location: ../oayment.php?order_status=Placed');
 
-    // remove from cart
-
-    // inform user wether everything went well or not
+    
 }
 
 else {

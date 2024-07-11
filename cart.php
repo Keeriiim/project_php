@@ -71,7 +71,7 @@ else if(isset($_POST['edit_quantity'])){ /* if the user clicked the edit button 
   subTotal(); /* call the subTotal function */
 
 }
-else{ /* if the user has not added anything to the cart, redirect to the home page */
+else{ /* if u go directly to the cart page via ex icon */
    // echo "<script>alert('no product is in the cart')</script>";
    // echo "<script>window.location = 'home.php'</script>";
   }
