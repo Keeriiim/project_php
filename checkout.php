@@ -94,7 +94,7 @@ if (!empty($_SESSION['cart']) && isset($_POST['checkout'])) {  /* if cart is not
         </div>
 
         <div class="mx-auto container">
-            <form id="checkout-form">
+            <form id="checkout-form" method="POST" action="server/place_order.php">
                 <div class="form-group checkout-small-element">
                     <label>Username</label>
                     <input type="text" class="form-control" id="checkout-name" name="name" placeholder="Enter your username" required>

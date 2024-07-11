@@ -1,6 +1,6 @@
 <?php
 
-session_start(); /* Starts the session, meaning that the session is active and can store data */
+session_start(); /* Starts the session, meaning that the session is active and can store data, the session  will be usable for all pages that are included in the session */
 
 if(isset($_POST['add_to_cart'])){ /* this will check if the user clicked the add to cart button */
  // echo "<script>alert('You pressed the button')</script>";
