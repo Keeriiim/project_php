@@ -72,8 +72,10 @@
       </nav>
 
 
-    <!-- Featured -->
+
+    <!-- Featured 
     <section id="featured" class="my-5 pb5">
+    
         <div class="container  mt-5 py-5">
           <h3>FEATURED PRODUCTS</h3>
           <hr>
@@ -81,8 +83,10 @@
           <p>Get the best products for the best prices</p>
         </div>
         <div class="row mx-auto container-fluid">
-          <!-- Product 1-->
-          <div onclick="window.location.href='single_product.html';" class="product text-center col-lg-3 col-md-4 col-sm-12">
+          
+        repeat x4 
+
+          <div onclick="window.location.href='single_product.php';" class="product text-center col-lg-3 col-md-4 col-sm-12">
             <img class="img-fluid mb-3" src="/assets/imgs/featured1.png"/>
             <div class="star">
               <i class="fas fa-star"></i>
@@ -95,59 +99,47 @@
             <h4 class="p-price">$199.8</h4>
             <button class="buy-btn">Buy Now</button>
           </div>
-
-          <!-- Product 2-->
-          <div onclick="window.location.href='single_product.html';" class="product text-center col-lg-3 col-md-4 col-sm-12">
-            <img class="img-fluid mb-3" src="/assets/imgs/featured2.png"/>
-            <div class="star">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-            </div>
-            <h5 class="p-name">Sports Shoes</h5>
-            <h4 class="p-price">$199.8</h4>
-            <button class="buy-btn">Buy Now</button>
-          </div>
-
-          <!-- Product 3-->
-          <div onclick="window.location.href='single_product.html';" class="product text-center col-lg-3 col-md-4 col-sm-16">
-            <img class="img-fluid mb-3" src="/assets/imgs/featured3.png"/>
-            <div class="star">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-            </div>
-            <h5 class="p-name">Sports Shoes</h5>
-            <h4 class="p-price">$199.8</h4>
-            <button class="buy-btn">Buy Now</button>
-          </div>
-
-          <!-- Product 4-->
-          <div onclick="window.location.href='single_product.html';" class="product text-center col-lg-3 col-md-4 col-sm-12">
-            <img class="img-fluid mb-3" src="/assets/imgs/featured4.png"/>
-            <div class="star">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-            </div>
-            <h5 class="p-name">Sports Shoes</h5>
-            <h4 class="p-price">$199.8</h4>
-            <button class="buy-btn">Buy Now</button>
-          </div>
-
         </div>
+      </section> -->
 
 
-      </section>
+      <!-- Featured -->
+      <section id="featured" class="my-5 pb5">
+          <div class="container text-center mt-5 py-5">
+            <h3>FEATURED PRODUCTS</h3>
+            <hr>
+            <h1>Summer Sale</h1>
+            <p>Get the best products for the best prices</p>
+          </div>
+          <div class="row mx-auto container-fluid">
+
+            <?php include('server/get_featured_prod.php')?>
+
+            <?php while($row = $featured_prod_result->fetch_assoc()){ ?>
+            <div class="product text-center col-lg-3 col-md-4 col-sm-12">
+            <a href="single_product.php?id=<?php echo $row['product_id']; ?>"><img class="img-fluid mb-3" src="/assets/imgs/<?php echo $row['product_image']; ?>"/></a>
+              <div class="star">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <h5 class="p-name"><?php echo $row['product_name']; ?></h5>
+              <h4 class="p-price">$ <?php echo $row['product_price']; ?></h4>
+              <a href="single_product.php?id=<?php echo $row['product_id']; ?>"> <button class="buy-btn">Buy Now</button></a>
+              
+            </div>
+
+            <?php } ?>
+
+            </div>
+          </section>
 
       
-    <!-- Footer -->
+    
+    
+      <!-- Footer -->
     <footer class="mt-5 py-5">
         <div class="row container mx-auto pt-5">
           <div class="footer-one col-lg-3 col-md-6 col-sm-12">

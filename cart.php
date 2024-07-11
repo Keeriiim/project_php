@@ -72,8 +72,8 @@ else if(isset($_POST['edit_quantity'])){ /* if the user clicked the edit button 
 
 }
 else{ /* if the user has not added anything to the cart, redirect to the home page */
-  echo "<script>alert('no product is in the cart')</script>";
-  echo "<script>window.location = 'home.php'</script>";
+   // echo "<script>alert('no product is in the cart')</script>";
+   // echo "<script>window.location = 'home.php'</script>";
   }
 
 
@@ -151,7 +151,7 @@ else{ /* if the user has not added anything to the cart, redirect to the home pa
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="shop.html">Shop</a>
+                    <a class="nav-link active" aria-current="page" href="shop.php">Shop</a>
                 </li>
 
                 <li class="nav-item">
