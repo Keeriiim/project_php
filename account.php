@@ -24,6 +24,29 @@ if(isset($_GET['logout'])){
 }
 
 
+
+if(isset($_POST['change_password'])){
+
+  $password = $_POST['password'];
+  $confirmPassword = $_POST['confirmPassword'];
+
+  if($password != $confirmPassword){
+    header('location: account.php?error=Missmatching passwords');
+
+  }else{
+    $stmt = $conn->prepare("UPDATE users SET user_password = ? WHERE user_email = ?");
+    $stmt->bind_param("ss", md5($password), $_SESSION['user_email']);
+
+    if($stmt->execute()){
+      header('location: account.php?message=Password changed successfully');
+    }else {
+      header('location: account.php?error=Could not update password');
+    } 
+  }
+
+}
+
+
 ?>
 
 
@@ -100,14 +123,21 @@ if(isset($_GET['logout'])){
       </nav>
     
 
+
+
+    
     <!-- Account -->
     <section class="my-5 py-5">
     <div class="row container mx-auto">
         <div class="text-center mt-3 pt-5 col-lg-6 col-md-12 col-sm-12">
-            <h3 class="font-weight-bold">Account info</h3>
-            <hr class="mx-auto">
-            <div class="account-info">
+        <p style="color:#32de84;"><?php if(isset($_GET['login_message'])){ 
+              echo $_GET['login_message']; }?></p>
+        <p style="color:#32de84;"><?php if(isset($_GET['register'])){ 
+              echo $_GET['register']; }?></p>
 
+            <h3 class="font-weight-bold">Account info</h3>
+            <hr class="mx-auto">                        
+            <div class="account-info">
 
                 <p>Name: <span><?php if(isset($_SESSION['user_name'])){echo $_SESSION['user_name'];}    ?></span></p>
                 <p>Email: <span><?php if(isset($_SESSION['user_email'])){echo $_SESSION['user_email'];}    ?></span></p>
@@ -119,7 +149,7 @@ if(isset($_GET['logout'])){
         </div>
 
         <div class="col-lg-6 col-md-12 col-sm-12">
-            <form id="account-form">
+            <form id="account-form" action="account.php" method="POST">
                 <h3>Change Password</h3>
                 <hr class="mx-auto">
                 <div class="form-group">
@@ -132,10 +162,24 @@ if(isset($_GET['logout'])){
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" value="Change Password" class="btn" id="change-pass-btn" name="password">
+                    <input type="submit" value="Change Password" class="btn" id="change-pass-btn" name="change_password">
                 </div>
             </form>
         </div>
+        <?php if(isset($_GET['error'])){ ?>
+                            <div class="alert alert-danger" role="alert" style="text-align: center;">
+                              <?php echo $_GET['error']; ?>
+                            </div>
+
+                            <?php } ?>
+                            <?php if(isset($_GET['message'])){ ?>
+                            <div class="alert alert-danger" role="alert" style="text-align: center; background-color:#32de84;">
+                              <?php echo $_GET['message']; ?>
+                            </div>
+
+                            <?php } ?>
+                            
+                            
     
     </section>
 

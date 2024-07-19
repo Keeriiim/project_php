@@ -32,9 +32,9 @@ if(isset($_POST['login_btn'])){
       $_SESSION['user_name'] = $user_name;
       $_SESSION['logged_in'] = true;
 
-      header('location: account.php?message=Logged in successfully');
+      header('location: account.php?login_message=Login successfull');
     }else {
-      header('location: login.php?error=Account does not exist');
+      header('location: login.php?error=Wrong password or Account does not exist');
     }
 
 

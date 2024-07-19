@@ -22,8 +22,7 @@ if (isset($_POST['register'])) {
     header('location: register.php?error=Passwords do not match');
   } else {
 
-    echo $password;
-    echo $confirmPassword;
+    
 
     // check if the user already exists
     $stmt1 = $conn->prepare("SELECT count(*) FROM users WHERE user_email = ?"); // prepare the query, this will count the number of rows that have the same email
@@ -34,8 +33,8 @@ if (isset($_POST['register'])) {
     $stmt1->fetch(); // fetch the result
 
     if ($num_rows > 0) {
-      echo "<script>alert('User already exists')</script>";
       header('location: register.php?error=User already exists');
+      exit;
     } else {
       // create a new user
       $stmt = $conn->prepare("INSERT INTO users (user_name, user_email, user_password) VALUES (?,?,?)"); // prepare the query
@@ -45,10 +44,12 @@ if (isset($_POST['register'])) {
       if ($stmt->execute()) { // execute the query
         $_SESSION['user_email'] = $email;
         $_SESSION['user_name'] = $name;
-        $_SESSION['loggeid_in'] = true;
+        $_SESSION['logged_in'] = true;
         header('location: account.php?register=You registered successfully');
+        exit;
       } else { // if account was not created
         header('location: register.php?error=could not create account');
+        exit;
       }
     }
   }
@@ -113,7 +114,7 @@ if (isset($_POST['register'])) {
           </li>
 
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="login.html">Login</a>
+            <a class="nav-link active" aria-current="page" href="login.php">Login</a>
           </li>
 
           <li class="nav-item">
@@ -163,7 +164,7 @@ if (isset($_POST['register'])) {
           <input type="submit" class="btn" id="register-btn" name="register" value="Register" />
         </div>
         <div class="form-group">
-          <a href="login.html" id="register-url" class="btn">Already have an account? Click here!</a>
+          <a href="login.php" id="register-url" class="btn">Already have an account? Click here!</a>
 
       </form>
     </div>
