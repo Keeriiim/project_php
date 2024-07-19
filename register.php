@@ -2,6 +2,13 @@
 include 'server/connection.php';
 session_start(); // start the session
 
+
+// check if the user is already logged in
+if (isset($_SESSION['logged_in'])) {
+  header('location: account.php');
+  exit;
+}
+
 if (isset($_POST['register'])) {
 
   $name = $_POST['name'];

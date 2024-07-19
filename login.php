@@ -1,3 +1,59 @@
+<?php 
+session_start();
+
+include('server/connection.php');
+
+if(isset($_SESSION['logged_in'])){
+  header('location: account.php');
+  exit;
+}
+
+if(isset($_POST['login_btn'])){
+
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+
+
+  $stmt = $conn->prepare("SELECT * FROM users WHERE user_email = ? AND user_password = ?"); // prepare the query 
+  $stmt->bind_param("ss", $email, md5($password)); // bind the parameters
+
+
+
+
+  if($stmt->execute()){ // execute the query
+    $stmt->bind_result($user_id, $user_name, $user_email, $user_password); // bind the result (email and password
+    $stmt->store_result(); // store the result
+
+    if($stmt->num_rows() ==1 ){
+      $stmt->fetch(); // fetch the result
+
+      $_SESSION['user_id'] = $user_id;
+      $_SESSION['user_email'] = $user_email;
+      $_SESSION['user_name'] = $user_name;
+      $_SESSION['logged_in'] = true;
+
+      header('location: account.php?message=Logged in successfully');
+    }else {
+      header('location: login.php?error=Account does not exist');
+    }
+
+
+
+  }else {
+    header('location: login.php?error=Something went wrong');
+  }
+}
+
+
+
+?>
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,75 +122,39 @@
           </div>
         </div>
       </nav>
-    
 
-    <!-- Account -->
+    <!-- Login -->
     <section class="my-5 py-5">
-    <div class="row container mx-auto">
-        <div class="text-center mt-3 pt-5 col-lg-6 col-md-12 col-sm-12">
-            <h3 class="font-weight-bold">Account info</h3>
-            <hr class="mx-auto">
-            <div class="account-info">
-                <p>Name <span>John</span></p>
-                <p>Email <span>John@doe</span></p>
-                <p><a href="#" id="order-btn">Your orders</a></p>
-                <p><a href="" id="logout-btn">Logout</a> </p>
-            </div>
+        <div class="container text-center mt-3 pt-5">
+            <h2 class="form-weight-bold">Login</h2>
+            <hr class="mx-auto"> <!-- create a center line under Login -->
         </div>
 
-        <div class="col-lg-6 col-md-12 col-sm-12">
-            <form id="account-form">
-                <h3>Change Password</h3>
-                <hr class="mx-auto">
+        <div class="mx-auto container">
+
+            <form id="login-form" method="POST" action="login.php">
+                <div class="form-group">
+                          <?php if(isset($_GET['error'])){ ?>
+                            <div class="alert alert-danger" role="alert">
+                              <?php echo $_GET['error']; ?>
+                            </div>
+
+                            <?php } ?>
+                    <label>Email</label>
+                    <input type="email" class="form-control" id="login-email" name="email" placeholder="Enter your email" required>
+                </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" class="form-control" id="account-password" name="password" placeholder="Password" required>
+                    <input type="password" class="form-control" id="login-password" name="password" placeholder="Password" required>
                 </div>
                 <div class="form-group">
-                    <label>Confirm Password</label>
-                    <input type="password" class="form-control" id="account-password-confirm" name="confirmPassword" placeholder="Password" required>
+                    <input type="submit" class="btn" id="login-btn" value="Login" name="login_btn"/>
                 </div>
-
                 <div class="form-group">
-                    <input type="submit" value="Change Password" class="btn" id="change-pass-btn" name="password">
-                </div>
+                    <a href="register.php" id="register-url" class="btn">Don't have account? Click here!</a>
+                    </div>
             </form>
         </div>
-    
-    </section>
-
-  
-    <!-- Orders -->
-    <section class="orders container my-5 py-3">
-      <div class="container mt-2">
-          <h2 class="font-wight-bold text-center">Order History</h2>
-          <hr class="mx-auto">
-      </div>
-
-      <table class="mt-5 pt-5">
-          <tr>
-              <th>Product</th>
-              <th>Date</th>
-          </tr>
-          <tr>
-
-              <td>
-                  <div class="product-info">
-                    <img src="assets/imgs/featured1.png" />
-                    <div>
-                      <p class="mt-3">White Shoes</p>
-                    </div>
-                  </div>
-              </td>
-
-              <td>
-                  <span>2036-5-8</span>
-              </td>
-              
-             
-          </tr>
-      </table>
-
     </section>
 
    
