@@ -1,3 +1,35 @@
+<?php
+
+include ('server/connection.php');
+session_start();
+
+if(!isset($_SESSION['logged_in'])){
+  header('location: login.php');
+  exit; // exit is important for the script to stop running,  if the user is not logged in and the script continues to run, the user will be able to see the account page which is not what we want
+}
+
+if(isset($_GET['logout'])){
+
+  if(isset($_SESSION['logged_in'])){
+    unset($_SESSION['logged_in']);
+    unset($_SESSION['user_id']);
+    unset($_SESSION['user_email']);
+    
+    
+    // session_destroy(); // destroy the session meaning all variables including cart etc
+    header('location: login.php');
+    exit;
+  }
+
+}
+
+
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,10 +107,14 @@
             <h3 class="font-weight-bold">Account info</h3>
             <hr class="mx-auto">
             <div class="account-info">
-                <p>Name <span>John</span></p>
-                <p>Email <span>John@doe</span></p>
+
+
+                <p>Name: <span><?php if(isset($_SESSION['user_name'])){echo $_SESSION['user_name'];}    ?></span></p>
+                <p>Email: <span><?php if(isset($_SESSION['user_email'])){echo $_SESSION['user_email'];}    ?></span></p>
+
+
                 <p><a href="#" id="order-btn">Your orders</a></p>
-                <p><a href="" id="logout-btn">Logout</a> </p>
+                <p><a href="account.php?logout=1" id="logout-btn">Logout</a> </p>
             </div>
         </div>
 
