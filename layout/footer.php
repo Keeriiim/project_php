@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,80 +20,14 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <style>
+  
     
 </style>
 </head>
 <body>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary py-3 fixed-top"> <!-- py is padding top/bot, fixed to fix the nav -->
-        <div class="container">
-          <img class="logo" src="assets/imgs/sitelogo.png"/>
-          <h2 class="brand">E-Shop</h2>
-
-        
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <!-- Navbar links, added nav-buttons to custom the whole div -->
-          <div class="collapse navbar-collapse nav-buttons" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-
-                <!-- Nav items -->
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="home.php">Home</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="shop.phpl">Shop</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="login.html">Login</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="contact.html">Contact us</a>
-                </li>
-
-
-                <li class="nav-item">
-                    <a href="cart.php"><i class="fas fa-cart-shopping"></i></a>
-                    <a href="account.html"><i class="fas fa-user"></i></a>
-                  </li>
-
-            </ul>
-          </div>
-        </div>
-      </nav>
-
-
-
-    <!-- Contact -->
-    <section id="contact" class="container my-5 py-5">
-        <div class="container text-center mt-5">
-            <h3>Contact Us</h3>
-            <hr class="mx-auto">
-            <p class="w-50 mx-auto">
-                Phone number: <span>123 456 789</span>
-            </p>
-            <p class="w-50 mx-auto">
-                Email: <span>123@test.com</span>
-            </p>
-            <p class="w-50 mx-auto">
-                We work 24/7 to provide you with the best service
-            </p>
-
-
-        </div>
-    </section>
-
-   
-
-    <!-- Footer -->
-    <footer class="mt-5 py-5">
+  <!-- Footer -->
+  <footer class="mt-5 py-5">
         <div class="row container mx-auto pt-5">
           <div class="footer-one col-lg-3 col-md-6 col-sm-12">
             <img class="logo logo-b" src="/assets/imgs/sitelogo.png"/>
@@ -155,9 +91,6 @@
         </div>
 
       </footer>
-
-
-
 
 <!-- Js bundle for Bootstrap-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

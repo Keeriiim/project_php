@@ -91,48 +91,8 @@ if (isset($_POST['register'])) {
 <body>
 
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary py-3 fixed-top"> <!-- py is padding top/bot, fixed to fix the nav -->
-    <div class="container">
-      <img class="logo" src="assets/imgs/sitelogo.png" />
-      <h2 class="brand">E-Shop</h2>
-
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <!-- Navbar links, added nav-buttons to custom the whole div -->
-      <div class="collapse navbar-collapse nav-buttons" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-
-          <!-- Nav items -->
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="home.php">Home</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="shop.php">Shop</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="login.php">Login</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="contact.html">Contact us</a>
-          </li>
-
-
-          <li class="nav-item">
-            <a href="cart.php"><i class="fas fa-cart-shopping"></i></a>
-            <a href="account.html"><i class="fas fa-user"></i></a>
-          </li>
-
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <?php include('layout/header.php')?>
+   
 
   <!-- Register -->
   <section class="my-5 py-5">
@@ -174,71 +134,9 @@ if (isset($_POST['register'])) {
 
 
 
-  <!-- Footer -->
-  <footer class="mt-5 py-5">
-    <div class="row container mx-auto pt-5">
-      <div class="footer-one col-lg-3 col-md-6 col-sm-12">
-        <img class="logo logo-b" src="/assets/imgs/sitelogo.png" />
-        <p class="pt-3">Our store is the best place to get the best products for the best prices</p>
-      </div>
-
-      <div class="footer-one col-lg-3 col-md-6 col-sm-12">
-        <h5 class="pb-3">Featured</h5>
-        <ul class="text-uppercase">
-          <li><a href="#">men</a></li>
-          <li><a href="#">boys</a></li>
-          <li><a href="#">shoes</a></li>
-          <li><a href="#">bags</a></li>
-          <li><a href="#">watches</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-one col-lg-3 col-md-6 col-sm-12">
-        <h5 class="pb-2" id="contactUs">Contact Us</h5>
-        <div>
-          <h6 class="text-uppercase">Adress</h6>
-          <p>1234 Street Name</p>
-        </div>
-        <div>
-          <h6 class="text-uppercase">Phones</h6>
-          <p>123-123-123-123</p>
-        </div>
-        <div>
-          <h6 class="text-uppercase">Email</h6>
-          <p>example_info@gmail.com</p>
-        </div>
-      </div>
-
-
-      <div class="footer-one col-lg-3 col-md-6 col-sm-12">
-        <h5 class="pb-2">Instagram</h5>
-        <div class="row">
-          <img class="img-fluid w-25 h-100 m-2" src="/assets/imgs/featured1.png" />
-          <img class="img-fluid w-25 h-100 m-2" src="/assets/imgs/featured2.png" />
-          <img class="img-fluid w-25 h-100 m-2" src="/assets/imgs/featured3.png" />
-          <img class="img-fluid w-25 h-100 m-2" src="/assets/imgs/featured4.png" />
-        </div>
-      </div>
-    </div>
-
-    <div class="copyright mt-5">
-      <div class="row container mx-auto">
-        <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-          <img src="assets/imgs/payment.png">
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-12 mb-4 text-nowrap mb-2">
-          <p>© 2021 Eshop. All rights reserved</p>
-        </div>
-
-        <div class="col-lg-3 col-md-6 col-sm-12 mb-2">
-          <a href="#"><i class="fab fa-facebook"></i> </a>
-          <a href="#"><i class="fab fa-instagram"></i> </a>
-          <a href="#"><i class="fab fa-twitter"></i> </a>
-        </div>
-      </div>
-    </div>
-
-  </footer>
+ 
+    <!-- Footer -->
+    <?php include('layout/footer.php')?>
 
 
 
