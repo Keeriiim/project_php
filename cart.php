@@ -155,7 +155,7 @@ else{ /* if u go directly to the cart page via ex icon */
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="login.html">Login</a>
+                    <a class="nav-link active" aria-current="page" href="login.php">Login</a>
                 </li>
 
                 <li class="nav-item">
@@ -165,7 +165,7 @@ else{ /* if u go directly to the cart page via ex icon */
 
                 <li class="nav-item">
                   <a href="cart.php"><i class="fas fa-cart-shopping"></i></a>
-                  <a href="account.html"><i class="fas fa-user"></i></a>
+                  <a href="account.php"><i class="fas fa-user"></i></a>
                 </li>
 
             </ul>
