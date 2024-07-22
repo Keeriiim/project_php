@@ -213,6 +213,18 @@ button:hover{
     opacity: 0.7;
 }
 
+.product .buy-btn{
+    background: coral;
+    transform: translateY(50px);
+    opacity:0;
+    transition: 0.3s;
+    color: white;
+}
+.product:hover .buy-btn{
+    transform: translateY(0);
+    opacity: 1;
+}
+
 .star{
     padding: 10px 0;
 }
@@ -221,6 +233,8 @@ button:hover{
     font-size: 0.9rem;
     color: gold;
 }
+
+
 
 
 

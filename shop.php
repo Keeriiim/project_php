@@ -1,3 +1,34 @@
+<?php
+include('server/connection.php');
+
+$products="";
+
+if(isset($_POST['search'])){
+
+$category = $_POST['category'];
+$price = $_POST['price'];
+
+
+  $stmt = $conn->prepare("SELECT * FROM products WHERE product_category = ? AND product_price <= ?");
+  $stmt->bind_param("si", $category, $price);
+  $stmt->execute();
+  $products = $stmt->get_result();
+
+
+
+
+}
+else{
+
+$stms = $conn->prepare("SELECT * FROM products");
+$stms->execute();
+
+$products = $stms->get_result();
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,10 +38,32 @@
 
     <style>
         .product img{
-            width: 100%;
+            width: 30%;
             height: auto;
             object-fit: border-box;
         }
+
+        #search{
+          position: fixed;
+          top: -50px;
+          left: 0;
+          float:left;
+         
+        }
+
+        body {
+            padding-top: 130px; /* Adjust this value based on your navbar height */
+        }
+
+        .content{
+          min-height: 800px;
+        }
+
+        .sbar{
+          background-color: #f8f9fa;
+          
+        }
+        
     </style>
 
     <!-- Bootstrap CSS -->
@@ -73,49 +126,73 @@
 
 
 
-    <!-- Featured 
-    <section id="featured" class="my-5 pb5">
-    
-        <div class="container  mt-5 py-5">
-          <h3>FEATURED PRODUCTS</h3>
-          <hr>
-          <h1>Summer Sale</h1>
-          <p>Get the best products for the best prices</p>
-        </div>
-        <div class="row mx-auto container-fluid">
-          
-        repeat x4 
+  
 
-          <div onclick="window.location.href='single_product.php';" class="product text-center col-lg-3 col-md-4 col-sm-12">
-            <img class="img-fluid mb-3" src="/assets/imgs/featured1.png"/>
-            <div class="star">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
+      <section id="search" class="my-5 ms-5 py-5 content sbar">
+          <div class="container mt-5 py-5">
+            <p>Search Products</p>
+          </div>
+
+          <form action="shop.php" method="POST">
+          <div class="row mx-auto container">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+
+            <p>Category</p>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="category" value="shoes" id="category_one" checked>
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Shoes
+                </label>
+              </div>
+
+
+              
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="category" value="coats" id="category_two">
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Coats
+                </label>
+              </div>
+
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="category" value="watches" id="category_three">
+                <label class="form-check-label" for="flexRadioDefault3">
+                  Watches
+                </label>
+              </div>
+
+
             </div>
-            <h5 class="p-name">Sports Shoes</h5>
-            <h4 class="p-price">$199.8</h4>
-            <button class="buy-btn">Buy Now</button>
           </div>
-        </div>
-      </section> -->
 
+          <div class="row mx-auto container mt-5">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <p>Price</p>
+              <input type="range" class="form-range w-150" name="price" value="100" min="1" max="1000" id="customRange1">
+              <div class="w-50">
+                <span style="float: left;">1</span>
+                <span style="float: right;">1000</span>
+              </div>  
+            </div>
+          </div>
 
-      <!-- Featured -->
-      <section id="featured" class="my-5 pb5">
-          <div class="container text-center mt-5 py-5">
-            <h3>FEATURED PRODUCTS</h3>
+          <div class="form-group my-3 mx-3">
+            <input type="submit" name="search" value="Search" class="btn btn-primary">
+          </div>
+        </form>
+
+          </section>
+
+    <!-- Featured -->
+    <section id="shop" class="my-5 pb-5 content">
+          <div class="container mt-1 py-1">
+            <h3>Our Products</h3>
             <hr>
-            <h1>Summer Sale</h1>
-            <p>Get the best products for the best prices</p>
+            
           </div>
-          <div class="row mx-auto container-fluid">
+          <div class="row mx-auto container">
 
-            <?php include('server/get_featured_prod.php')?>
-
-            <?php while($row = $featured_prod_result->fetch_assoc()){ ?>
+            <?php while($row = $products->fetch_assoc()){ ?>
             <div class="product text-center col-lg-3 col-md-4 col-sm-12">
             <a href="single_product.php?id=<?php echo $row['product_id']; ?>"><img class="img-fluid mb-3" src="/assets/imgs/<?php echo $row['product_image']; ?>"/></a>
               <div class="star">
@@ -127,7 +204,7 @@
               </div>
               <h5 class="p-name"><?php echo $row['product_name']; ?></h5>
               <h4 class="p-price">$ <?php echo $row['product_price']; ?></h4>
-              <a href="single_product.php?id=<?php echo $row['product_id']; ?>"> <button class="buy-btn">Buy Now</button></a>
+              <a class="btn buy-btn" href="single_product.php?id=<?php echo $row['product_id']; ?>">Buy Now</a>
               
             </div>
 
@@ -135,6 +212,9 @@
 
             </div>
           </section>
+
+    
+
 
       
     
@@ -209,3 +289,35 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
+
+<!-- Featured 
+    <section id="featured" class="my-5 pb5">
+    
+        <div class="container  mt-5 py-5">
+          <h3>FEATURED PRODUCTS</h3>
+          <hr>
+          <h1>Summer Sale</h1>
+          <p>Get the best products for the best prices</p>
+        </div>
+        <div class="row mx-auto container-fluid">
+          
+        repeat x4 
+
+          <div onclick="window.location.href='single_product.php';" class="product text-center col-lg-3 col-md-4 col-sm-12">
+            <img class="img-fluid mb-3" src="/assets/imgs/featured1.png"/>
+            <div class="star">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <h5 class="p-name">Sports Shoes</h5>
+            <h4 class="p-price">$199.8</h4>
+            <button class="buy-btn">Buy Now</button>
+          </div>
+        </div>
+      </section> -->
+
+
+      <!-- Featured -->
