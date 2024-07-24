@@ -18,6 +18,14 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <style>
+ body{
+  min-height: 100vh;
+  
+ }
+
+ #contact{
+     min-height: 600px;
+ }
     
 </style>
 </head>
@@ -48,78 +56,11 @@
         </div>
     </section>
 
-   
+   <!-- Footer -->
+   <?php include('layout/footer.php')?>
 
    
-    <!-- Footer -->
-    <?php include('layout/footer.php')?>
-  
-        <div class="row container mx-auto pt-5">
-          <div class="footer-one col-lg-3 col-md-6 col-sm-12">
-            <img class="logo logo-b" src="/assets/imgs/sitelogo.png"/>
-            <p class="pt-3">Our store is the best place to get the best products for the best prices</p>
-          </div>
-
-          <div class="footer-one col-lg-3 col-md-6 col-sm-12">
-            <h5 class="pb-3">Featured</h5>
-            <ul class="text-uppercase">
-              <li><a href="#">men</a></li>
-              <li><a href="#">boys</a></li>
-              <li><a href="#">shoes</a></li>
-              <li><a href="#">bags</a></li>
-              <li><a href="#">watches</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-one col-lg-3 col-md-6 col-sm-12">
-            <h5 class="pb-2" id="contactUs">Contact Us</h5>
-            <div>
-              <h6 class="text-uppercase">Adress</h6>
-              <p>1234 Street Name</p>
-            </div>
-            <div>
-              <h6 class="text-uppercase">Phones</h6>
-              <p>123-123-123-123</p>
-            </div>
-            <div>
-              <h6 class="text-uppercase">Email</h6>
-              <p>example_info@gmail.com</p>
-            </div>
-          </div>
-
-
-          <div class="footer-one col-lg-3 col-md-6 col-sm-12">
-            <h5 class="pb-2">Instagram</h5>
-            <div class="row">
-              <img class="img-fluid w-25 h-100 m-2" src="/assets/imgs/featured1.png"/>
-              <img class="img-fluid w-25 h-100 m-2" src="/assets/imgs/featured2.png"/>
-              <img class="img-fluid w-25 h-100 m-2" src="/assets/imgs/featured3.png"/>
-              <img class="img-fluid w-25 h-100 m-2" src="/assets/imgs/featured4.png"/>
-            </div>
-          </div>
-        </div>
-
-        <div class="copyright mt-5">
-          <div class="row container mx-auto">
-            <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-                <img src="assets/imgs/payment.png">
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12 mb-4 text-nowrap mb-2">
-              <p>© 2021 Eshop. All rights reserved</p>
-            </div>
-
-            <div class="col-lg-3 col-md-6 col-sm-12 mb-2">
-              <a href="#"><i class="fab fa-facebook"></i> </a> 
-              <a href="#"><i class="fab fa-instagram"></i> </a>
-              <a href="#"><i class="fab fa-twitter"></i> </a>
-            </div>
-          </div>
-        </div>
-
-      </footer>
-
-
-
+   
 
 <!-- Js bundle for Bootstrap-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

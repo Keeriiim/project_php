@@ -2,7 +2,7 @@
 
 session_start();
 
-if (!empty($_SESSION['cart']) && isset($_POST['checkout'])) {  /* if cart is not empty and checkout button is pressed */
+if (!empty($_SESSION['cart'])) {  /* if cart is not empty and checkout button is pressed */
    
 } else {
     header('Location: home.php');
@@ -55,6 +55,12 @@ if (!empty($_SESSION['cart']) && isset($_POST['checkout'])) {  /* if cart is not
 
         <div class="mx-auto container">
             <form id="checkout-form" method="POST" action="server/place_order.php">
+                <p class="text-center" style="color:red;">
+                    <?php 
+                        if(isset($_GET['message'])) {
+                            echo $_GET['message'];
+                        }
+                    ?></p>
                 <div class="form-group checkout-small-element">
                     <label>Username</label>
                     <input type="text" class="form-control" id="checkout-name" name="name" placeholder="Enter your username" required>

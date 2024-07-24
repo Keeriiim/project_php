@@ -5,6 +5,7 @@ session_start();
 
 $order_details="";
 $order_status="";
+$order_total_price="";
 
 if(isset($_POST['order_details_btn']) && isset($_POST['order_id'])){
   $order_id = $_POST['order_id'];
@@ -14,8 +15,26 @@ if(isset($_POST['order_details_btn']) && isset($_POST['order_id'])){
   $stmt->bind_param("i", $order_id);
   $stmt->execute();
   $order_details = $stmt->get_result();
+
+  $order_total_price = subTotalOrder($order_details);
+
 }else{
   header("Location: account.php");
+}
+
+
+function subTotalOrder($order_details){
+  $total = 0;
+  while($row= $order_details->fetch_assoc()){
+
+    $product_price = $row['product_price'];
+    $product_quantity = $row['product_quantity'];
+    $total = $total + ($product_price * $product_quantity);
+
+  }
+
+  return $total;
+  
 }
 
 ?>
@@ -44,6 +63,13 @@ if(isset($_POST['order_details_btn']) && isset($_POST['order_id'])){
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <style>
+  body{
+    height: 100vh;
+  }
+
+  .orders{
+    min-height: 600px;
+  }
     
 </style>
 </head>
@@ -52,12 +78,12 @@ if(isset($_POST['order_details_btn']) && isset($_POST['order_id'])){
 <!-- Navbar -->
 <?php include('layout/header.php')?>
     
-    
-
+  
+<div style="height: 150px;"></div>
 
 <!-- Order details -->
-<section class="orders container my-5 py-5">
-      <div class="container mt-2 pt-5">
+<section class="orders container mt-3 pt-1">
+      <div class="container mt-1 pt-5">
           <h2 class="font-wight-bold text-center">Order Details</h2>
           <hr class="mx-auto">
       </div>
@@ -73,7 +99,7 @@ if(isset($_POST['order_details_btn']) && isset($_POST['order_id'])){
               
               
           </tr>
-          <?php while($row = $order_details->fetch_assoc()){ ?>
+          <?php foreach($row = $order_details->fetch_assoc()){ ?>
             <tr>
             <td>
               <!--<div class="product-info"> -->
@@ -102,13 +128,12 @@ if(isset($_POST['order_details_btn']) && isset($_POST['order_id'])){
       </table>
 
       <?php if($order_status == "pending"){?>
-      <form style="float: right;">
-        <input class="btn btn-primary" type="submit" value="Pay Now">
+      <form style="float: right;" method="POST" action="payment.php">
+        <input type="hidden" name="order_total_price" value="<?php echo $order_total_price; ?>">
+        <input type="hidden" name="order_status" value="<?php echo $order_status; ?>">
+        <!--input class="btn btn-primary" type="submit" name ="order_pay_btn" value="Pay Now"-->
 
       </form>
-      
-    
-    
     
      <?php }?>
   

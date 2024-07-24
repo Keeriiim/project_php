@@ -7,6 +7,12 @@ include 'connection.php';
   //  echo 'place order';  }
 
 
+if(!isset($_SESSION['logged_in'])) {
+    header('location: ../checkout.php?message=Please login first');
+    exit; // Either use exit or place the code below in else!
+}
+
+
 if(isset($_POST['place_order'])) {
 
     // get user info
@@ -34,7 +40,11 @@ if(isset($_POST['place_order'])) {
     // email is omitted cuz we forgot to add it to DB
     $stmt->bind_param("isiisss", $order_cost, $order_status, $user_id, $phone, $city, $address, $order_date); // bind the parameters
 
-    $stmt->execute(); // execute the query
+    $stmt_status = $stmt->execute(); // execute the query
+    if(!$stmt_status){
+        header('location: ../index.php');
+        exit;
+    }
 
     $order_id= $stmt->insert_id; // 2. get the id of the last inserted record
    
@@ -62,7 +72,7 @@ if(isset($_POST['place_order'])) {
     // 5. remove all from cart
 
     // 6. inform user wether everything went well or not
-    header('location: ../oayment.php?order_status=Placed');
+    header('location: ../payment.php?order_status=Placed');
 
     
 }

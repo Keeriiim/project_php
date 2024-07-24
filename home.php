@@ -128,8 +128,7 @@
 
 
 
-    <!-- Footer -->
-      <!-- Navbar -->
+      <!-- Footer -->
       <?php include('layout/footer.php')?>
 
 

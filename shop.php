@@ -45,9 +45,12 @@ $products = $stms->get_result();
 
         #search{
           position: fixed;
-          top: -50px;
-          left: 0;
           float:left;
+          top: -50px;
+          left: -40px;
+          width: 250px;
+          min-height: 400px;
+          
          
         }
 
@@ -90,7 +93,7 @@ $products = $stms->get_result();
 
       <section id="search" class="my-5 ms-5 py-5 content sbar">
           <div class="container mt-5 py-5">
-            <p>Search Products</p>
+            <h3 style="text-align: center; font-weight:bold;">Search Products</h3>
           </div>
 
           <form action="shop.php" method="POST">
@@ -129,9 +132,9 @@ $products = $stms->get_result();
             <div class="col-lg-12 col-md-12 col-sm-12">
               <p>Price</p>
               <input type="range" class="form-range w-150" name="price" value="100" min="1" max="1000" id="customRange1">
-              <div class="w-50">
+              <div class="w-150">
                 <span style="float: left;">1</span>
-                <span style="float: right;">1000</span>
+                <span style="float:right;">1000</span>
               </div>  
             </div>
           </div>

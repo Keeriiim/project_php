@@ -1,7 +1,28 @@
 <?php
 
 session_start();
+
+if(!isset($_SESSION['logged_in'])){ 
+    header('location: login.php?error=Please Log in to continue');
+}else if(isset($_SESSION['user_id'])){
+
+    if(isset($_SESSION['cart'])){
+        $cart = $_SESSION['cart'];
+        if(count($cart) <= 0){
+            header('location: account.php?error=You need items in cart to acces payment');
+    }
+    
+}else if($_POST['order_pay_btn']){
+    $order_total_price = $_POST['order_total_price'];
+    $order_status =$_POST['order_status'];
+    
+}
+
+
 ?>
+
+
+
 
 
 
@@ -28,6 +49,8 @@ session_start();
 
     <style>
 
+       
+
     </style>
 </head>
 
@@ -36,6 +59,17 @@ session_start();
     <!-- Navbar -->
     <?php include('layout/header.php')?>
     
+
+<!-- Account -->
+<div class="container mt-5">
+        <h2 class="text-center">Session Data</h2>
+        <ul class="list-group">
+            <?php foreach($_SESSION as $key => $value) { ?>
+                <li class="list-group-item"><?php echo ucfirst($key) . ': ' . $value; ?></li>
+            <?php } ?>
+        </ul>
+    </div>
+
 
 
 <!-- Payment -->
@@ -46,16 +80,8 @@ session_start();
     </div>
 
     <div class="mx-auto container text-center">
-        <p><?php if(isset($_GET['order_status'])){ echo $_GET['order_status'];} ?></p>
-        <p>Total: $<?php if(isset($_SESSION['total'])){ echo $_SESSION['total'];} ?></p>
-        
-        <?php if(isset($_SESSION['total'])){?>
-        <input class="btn btn-primary" type="submit" value="Pay now">
-        <?php } ?>
-
-        <?php if(isset($_GET['order_status']) && $_GET['order_status']=="pending"){?>
-        <input class="btn btn-primary" type="submit" value="Pay now">
-        <?php } ?>
+        <p>Total payment: $<?php echo $_SESSION['total']; ?></p>
+        <input class="btn btn-primary" type="submit" value="Pay Now">
     </div>
 </section>
 
