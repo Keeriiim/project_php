@@ -1,14 +1,19 @@
 <?php
 
 session_start(); /* Starts the session, meaning that the session is active and can store data, the session  will be usable for all pages that are included in the session */
-
+if(!$_SESSION['logged_in']){
+  header('Location: login.php?error=You need to login to access cart');
+  exit;
+}
 if(isset($_POST['add_to_cart'])){ /* this will check if the user clicked the add to cart button */
- // echo "<script>alert('You pressed the button')</script>";
+ // echo "<script>alert('Added to cart')</script>";
   
   
 
   if(isset($_POST['cart'])){ /* if the product is already in the cart */
-    echo "<script>alert('This item is now in the cart')</script>";
+   // echo "<script>alert('Already in cart')</script>";
+
+
     $product_arrays_ids = array_column($_SESSION['cart'], 'product_id'); /* returns all product id from the session */
     
     if(!in_array($_POST['product_id'],$products_array_ids)){ /* if the product is not in the cart, add it */
@@ -25,7 +30,7 @@ if(isset($_POST['add_to_cart'])){ /* this will check if the user clicked the add
 
       // Product has alreadybeen added to the cart
     }else{
-      echo "<script>alert('Product is already added to the cart')</script>";
+      echo "<script>alert('product already exists')</script>";
 
     }
   }
@@ -43,7 +48,7 @@ if(isset($_POST['add_to_cart'])){ /* this will check if the user clicked the add
 
       $_SESSION['cart'][$product_id] = $product_array; /* store the array in the session */
       
-    }
+    } 
 
     subTotal(); /* call the subTotal function */
     
@@ -80,18 +85,19 @@ else{ /* if u go directly to the cart page via ex icon */
   
   function subTotal(){
     $total = 0;
-    foreach($_SESSION['cart'] as $key => $value){ /* loop through the cart, by getting the key and value */
-      /* $total = $total + ($value['product_quantity'] * $value['product_price']);       better code */
+      foreach($_SESSION['cart'] as $key => $value){ /* loop through the cart, by getting the key and value */
+        
+        $product = $_SESSION['cart'][$key]; /* get the product */
+        $price = $product['product_price']; /* get the price */
+        $quantity = $product['product_quantity']; /* get the quantity */
 
-      $product = $_SESSION['cart'][$key]; /* get the product */
-      $price = $product['product_price']; /* get the price */
-      $quantity = $product['product_quantity']; /* get the quantity */
+        $total = $total + ($price * $quantity); /* calculate the total */
 
-      $total = $total + ($price * $quantity); /* calculate the total */
-    }
-    $_SESSION['total'] = $total; /* store the total in the session */
-    
-  }
+        
+        }
+        $_SESSION['total'] = $total; /* store the total in the session */
+      }
+
 
 ?>
 
@@ -146,7 +152,13 @@ else{ /* if u go directly to the cart page via ex icon */
                 <th>Total</th>
             </tr>
 
-            <?php foreach($_SESSION['cart'] as $key => $value){ ?>
+            <?php //if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
+                    foreach ($_SESSION['cart'] as $key => $value) {
+                     // if ($value === null) continue;
+                                      // Add your processing code here
+                   // }
+            ?>
+
 
               <tr>
                 <td>
@@ -175,7 +187,7 @@ else{ /* if u go directly to the cart page via ex icon */
                     
                     <form method="POST" action="cart.php">
                       <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>"/>
-                      <input type="number" name="product_quantity" value="<?php echo $value['product_quantity']; ?>" /> 
+                      <input type="number" name="product_quantity" min="1" value="<?php echo $value['product_quantity']; ?>" /> 
                       <input type="submit" name="edit_quantity" value="edit" class="edit-btn"/>
                     </form>
                     
@@ -196,7 +208,7 @@ else{ /* if u go directly to the cart page via ex icon */
           <table>
             <tr>
               <td>Total</td>
-              <td>$ <?php echo $_SESSION['total'] ?></td>
+              <td>$ <?php if(isset($_SESSION['total'])){echo $_SESSION['total']; }?></td>
           </table>
         </div>
 
@@ -205,7 +217,7 @@ else{ /* if u go directly to the cart page via ex icon */
         <!-- Checkout -->
         <div class="checkout-container">
           <form method="POST" action="checkout.php">
-            <input type="hidden" name="total" value="<?php echo $_SESSION['total'] ?>"/>
+            <input type="hidden" name="total" value="<?php if(isset($_SESSION['total'])){echo $_SESSION['total']; } ?>"/>
             <input type="submit" class="checkout-btn" name="checkout" value="Checkout"/>
             
           </form>

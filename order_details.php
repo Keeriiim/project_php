@@ -25,7 +25,7 @@ if(isset($_POST['order_details_btn']) && isset($_POST['order_id'])){
 
 function subTotalOrder($order_details){
   $total = 0;
-  while($row= $order_details->fetch_assoc()){
+  foreach($order_details as $row){
 
     $product_price = $row['product_price'];
     $product_quantity = $row['product_quantity'];
@@ -99,7 +99,7 @@ function subTotalOrder($order_details){
               
               
           </tr>
-          <?php foreach($row = $order_details->fetch_assoc()){ ?>
+          <?php foreach($order_details as $row){ ?>
             <tr>
             <td>
               <!--<div class="product-info"> -->
@@ -131,7 +131,7 @@ function subTotalOrder($order_details){
       <form style="float: right;" method="POST" action="payment.php">
         <input type="hidden" name="order_total_price" value="<?php echo $order_total_price; ?>">
         <input type="hidden" name="order_status" value="<?php echo $order_status; ?>">
-        <!--input class="btn btn-primary" type="submit" name ="order_pay_btn" value="Pay Now"-->
+        <input class="btn btn-primary" type="submit" name ="order_pay_btn" value="Pay Now">
 
       </form>
     

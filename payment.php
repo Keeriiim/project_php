@@ -1,21 +1,25 @@
 <?php
 
 session_start();
+$order_total_price ="";
+$order_status ="";
 
 if(!isset($_SESSION['logged_in'])){ 
     header('location: login.php?error=Please Log in to continue');
 }else if(isset($_SESSION['user_id'])){
 
-    if(isset($_SESSION['cart'])){
+    if(isset($_SESSION['cart']) && $_POST['order_pay_btn']){
+        $order_total_price = $_POST['order_total_price'];
+        $order_status =$_POST['order_status'];
+
+    }
+    else if(isset($_SESSION['cart'])){
         $cart = $_SESSION['cart'];
         if(count($cart) <= 0){
             header('location: account.php?error=You need items in cart to acces payment');
     }
     
-}else if($_POST['order_pay_btn']){
-    $order_total_price = $_POST['order_total_price'];
-    $order_status =$_POST['order_status'];
-    
+}
 }
 
 
@@ -80,13 +84,18 @@ if(!isset($_SESSION['logged_in'])){
     </div>
 
     <div class="mx-auto container text-center">
-        <p>Total payment: $<?php echo $_SESSION['total']; ?></p>
+        <p>Total payment: $<?php echo $order_total_price; ?></p>
         <input class="btn btn-primary" type="submit" value="Pay Now">
     </div>
 </section>
 
 
+<!-- PayPal button -->
 
+<div id="paypal-button-container"></div>
+    <p id="result-message"></p>
+    <!-- Replace the "test" client-id value with your client-id -->
+    
    
     <!-- Footer -->
     <?php include('layout/footer.php')?>
@@ -94,7 +103,9 @@ if(!isset($_SESSION['logged_in'])){
 
     <!-- Js bundle for Bootstrap-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+    <!-- Custom Js -->
+    <script src="https://www.paypal.com/sdk/js?client-id=Abfyy6IOj_hmhTduVTM4921nbh5rs4pwKMleYxIehCBX3I0T6ykWAd6BOtkl8Y4uCVYGtAw7wQKvESDc&components=buttons&enable-funding=paylater,venmo,card" data-sdk-integration-source="integrationbuilder_sc"></script>
+    <script src="app.js"></script>
 
 </body>
 
