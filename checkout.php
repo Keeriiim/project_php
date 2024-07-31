@@ -63,23 +63,23 @@ if (!empty($_SESSION['cart'])) {  /* if cart is not empty and checkout button is
                     ?></p>
                 <div class="form-group checkout-small-element">
                     <label>Username</label>
-                    <input type="text" class="form-control" id="checkout-name" name="name" placeholder="Enter your username" required>
+                    <input type="text" class="form-control" id="checkout-name" name="name" placeholder="Enter your username" value="test" required>
                 </div>
                 <div class="form-group checkout-small-element">
                     <label>Email</label>
-                    <input type="email" class="form-control" id="checkout-email" name="email" placeholder="Enter your email" required>
+                    <input type="email" class="form-control" id="checkout-email" name="email" placeholder="Enter your email" value="test@gmail.com"required>
                 </div>
                 <div class="form-group checkout-small-element">
                     <label>Phone</label>
-                    <input type="number" class="form-control" id="checkout-phone" name="phone" placeholder="Phone" required>
+                    <input type="number" class="form-control" id="checkout-phone" name="phone" placeholder="Phone" value="123456789"required>
                 </div>
                 <div class="form-group checkout-small-element">
                     <label>City</label>
-                    <input type="text" class="form-control" id="checkout-city" name="city" placeholder="City" required>
+                    <input type="text" class="form-control" id="checkout-city" name="city" placeholder="City" value="test" required>
                 </div>
                 <div class="form-group checkout-large-element">
                     <label>Adress</label>
-                    <input type="text" class="form-control" id="checkout-adress" name="adress" placeholder="Adress" required>
+                    <input type="text" class="form-control" id="checkout-adress" name="adress" placeholder="Adress" value="test" required>
                 </div>
                 <div class="form-group checkout-btn-container">
                     <p>Total amount: $ <?php echo $_SESSION['total']; ?></p>

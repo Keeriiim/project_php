@@ -6,7 +6,7 @@ session_start();
 $order_details="";
 $order_status="";
 $order_total_price="";
-
+ //order_details_btn ???
 if(isset($_POST['order_details_btn']) && isset($_POST['order_id'])){
   $order_id = $_POST['order_id'];
   $order_status = $_POST['order_status'];

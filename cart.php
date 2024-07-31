@@ -153,7 +153,8 @@ else{ /* if u go directly to the cart page via ex icon */
             </tr>
 
             <?php //if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
-                    foreach ($_SESSION['cart'] as $key => $value) {
+                    if(isset($_SESSION['cart'])){
+                      foreach ($_SESSION['cart'] as $key => $value) {
                      // if ($value === null) continue;
                                       // Add your processing code here
                    // }
@@ -198,7 +199,7 @@ else{ /* if u go directly to the cart page via ex icon */
                 </td>
             </tr>
 
-            <?php } ?>
+            <?php }} ?>
             
         </table>
 
