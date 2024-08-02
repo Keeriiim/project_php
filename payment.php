@@ -3,6 +3,7 @@
 session_start();
 $order_total_price ="";
 $order_status ="";
+$order_id ="";
 
 if(!isset($_SESSION['logged_in'])){ 
     header('location: login.php?error=Please Log in to continue');
@@ -11,14 +12,17 @@ if(!isset($_SESSION['logged_in'])){
     
     if(isset($_POST['order_status']) && $_POST['order_status'] == 'pending'){
         $amount = $_POST['order_total_price'];
+        $order_id = $_POST['order_id'];
     }else if(isset($_SESSION['cart'])){
         $cart = $_SESSION['cart'];
+
         if(count($cart) <= 0){
             header('location: account.php?error=You need items in cart to access payment');
         }else{
 
             if(isset($_SESSION['total']) && $_SESSION['total'] != 0 ){
                 $amount = $_SESSION['total'];
+                $order_id = $_SESSION['order_id'];
             } 
         }
 
@@ -121,8 +125,10 @@ if(!isset($_SESSION['logged_in'])){
                     console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
                 
                 var transaction = orderData.purchase_units[0].payments.captures[0];
-                alert('Transaction ' + transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
-                window.location.href = 'server/complete_payment?transaction_id='+transaction.id+'order_id=<?php echo order_id?>+'.php';
+                var trans = String(transaction.id);
+                var order_1 = '<?php echo $order_id; ?>';
+                //alert('Transaction ' + transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+                window.location.href = 'server/complete_payment.php?transaction_id=' + trans + '&order_id='+order_1;
     
                 //when rdy to go live, remove the alert and replace with redirect to success page
                 // element.innerHTML = '<h3>Thank you for your payment!</h3>';

@@ -129,6 +129,7 @@ function subTotalOrder($order_details){
 
       <?php if($order_status == "pending"){?>
       <form style="float: right;" method="POST" action="payment.php">
+        <input type="hidden" name="order_id" value="<?php echo $_POST['order_id']; ?>">
         <input type="hidden" name="order_total_price" value="<?php echo $order_total_price; ?>">
         <input type="hidden" name="order_status" value="<?php echo $order_status; ?>">
         <input class="btn btn-primary" type="submit" name ="order_pay_btn" value="Pay Now">

@@ -70,6 +70,7 @@ if(isset($_POST['place_order'])) {
     
 
     // 5. remove all from cart
+    $_SESSION['order_id'] = $order_id;
 
     // 6. inform user wether everything went well or not
     header('location: ../payment.php?order_status=Placed');
